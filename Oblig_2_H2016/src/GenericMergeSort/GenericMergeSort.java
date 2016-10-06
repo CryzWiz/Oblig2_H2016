@@ -46,20 +46,4 @@ public class GenericMergeSort {
 	public static String print(){
 		return "it works!";
 	}
-	/** A test method 
-	 * @param <E>*/
-	public static <E> void main(String[] args) {
-		Integer[] intArray = {
-				new Integer(2), 
-				new Integer(6), 
-				new Integer(1), 
-				new Integer(3),
-				new Integer(-2),
-				new Integer(9),
-				new Integer(0),
-				new Integer(-6),};
-		mergeSort(intArray);
-		for (int i = 0; i < intArray.length; i++)
-			System.out.print(intArray[i] + " ");
-	}
 }
