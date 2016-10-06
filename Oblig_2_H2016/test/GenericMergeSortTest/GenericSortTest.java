@@ -26,9 +26,5 @@ public class GenericSortTest{
 		String[] stringCorrectResponceOne = {"Allan","Kenneth","Lotte","Åse"};
 		assertThat(stringArrayOne, is(stringCorrectResponceOne));
 	}
-	
-
-	
-	
 
 }
