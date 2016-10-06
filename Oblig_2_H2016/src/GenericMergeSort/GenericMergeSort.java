@@ -2,10 +2,6 @@ package GenericMergeSort;
 
 import java.util.ArrayList;
 
-
-
-
-
 public class GenericMergeSort {
 	public static <E extends Comparable<E>> void mergeSort(E[] list){
 		if(list.length > 1){
@@ -19,7 +15,7 @@ public class GenericMergeSort {
 			
 			merge(firsthalf, secondhalf, list);
 		}
-		
+
 	}
 	
 	public static <E> void merge(E[] firsthalf, E[] secondhalf, E[] temp){
