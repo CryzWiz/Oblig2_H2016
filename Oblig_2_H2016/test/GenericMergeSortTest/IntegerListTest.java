@@ -16,7 +16,7 @@ public class IntegerListTest {
 		Integer[] intCorrectResponceOne = {-6,-2,0,1,2,3,6,9};
 		assertThat(intArrayOneEVEN, is(intCorrectResponceOne));
 	}
-	/*
+	
 	@Test 
 	public void testSortIntODD(){ 
 		Integer[] intArrayOneODD = {12,9,6,1,2,-6,0,-2,3};
@@ -24,5 +24,5 @@ public class IntegerListTest {
 		Integer[] intCorrectResponceOne = {-6,-2,0,1,2,3,6,9,12};
 		assertThat(intArrayOneODD, is(intCorrectResponceOne));
 	}
-	*/
+	
 }

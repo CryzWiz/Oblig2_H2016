@@ -14,7 +14,7 @@ public class GenericMergeSort {
 			mergeSort(firsthalf);
 			// Merge second half
 			E[] secondhalf = (E[]) new  Comparable[list.length - (list.length / 2)];
-			System.arraycopy(list, list.length - (list.length / 2 ), secondhalf, 0, (list.length - (list.length / 2 )));
+			System.arraycopy(list, list.length/2, secondhalf, 0, (list.length - (list.length / 2 )));
 			mergeSort(secondhalf);
 			
 			merge(firsthalf, secondhalf, list);
