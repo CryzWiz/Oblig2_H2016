@@ -186,9 +186,9 @@ public class MyLinkedList<E> extends MyAbstractList<E> {
 	    if(index > size) throw new NullPointerException("The list size is not that big"); // If index is bigger than the actual size
 	    for (int i = 0; i < index; i++) { // Search the list to the index before, and set target to the next object
 	    	target = target.next;
-	    } 
+	    }
 	    if(target.element != null) return target.element; // Return the object found
-	    else return null; //else return null.
+	    else return null; //else return null, but this should never happen..
 	  }
 
 	  @Override /** Return the index of the head matching element in 
@@ -226,8 +226,12 @@ public class MyLinkedList<E> extends MyAbstractList<E> {
 	  @Override /** Replace the element at the specified position 
 	   *  in this list with the specified element. */
 	  public E set(int index, E e) {
-	    System.out.println("Implementation left as an exercise");
-	    return null;
+		Node<E> target = head;
+	    for(int i = 0; i < index; i++){
+	    	target = target.next;
+	    }
+	    target.next = new Node<E>(e);
+		return target.element;
 	  }
 
 	  @Override /** Override iterator() defined in Iterable */

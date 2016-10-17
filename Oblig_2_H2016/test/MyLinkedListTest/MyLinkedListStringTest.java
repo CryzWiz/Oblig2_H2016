@@ -9,6 +9,7 @@ public class MyLinkedListStringTest {
 	private MyLinkedList mylinkedlist;
 	private String[] stringArray = {"Bjarne","Åse","Vidar","Øystein","Åse","Stian"};
 	Object keyword = "Åse";
+	Object insert = "Inserted";
 	
 	@Before
 	public void initialize(){
@@ -43,6 +44,12 @@ public class MyLinkedListStringTest {
 	public void testlastIndexOf(){
 		//assertTrue(mylinkedlist.contains(keyword));
 		assertEquals(4, mylinkedlist.lastIndexOf(keyword));
+	}
+	
+	@Test
+	public void testSet(){
+		assertEquals(mylinkedlist.get(2), mylinkedlist.set(2,insert));
+		
 	}
 
 }
