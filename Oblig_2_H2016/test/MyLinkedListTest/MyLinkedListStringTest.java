@@ -8,14 +8,14 @@ public class MyLinkedListStringTest {
 	// Testing with Strings
 	private MyLinkedList mylinkedlist;
 	private String[] stringArray = {"Bjarne","Åse","Vidar","Øystein","Åse","Stian"};
-	Object keyword = "Åse";
-	Object insert = "Inserted";
+	String keyword = new String("Åse");
+	String insert = new String("Inserted");
 	
 	@Before
 	public void initialize(){
 		mylinkedlist = new MyLinkedList();
 		for(int i = 0; i < stringArray.length; i++){
-			mylinkedlist.add(stringArray[i]);
+			mylinkedlist.add(new String(stringArray[i]));
 		}
 	}
 	@Test
@@ -48,7 +48,7 @@ public class MyLinkedListStringTest {
 	
 	@Test
 	public void testSet(){
-		assertEquals(mylinkedlist.get(2), mylinkedlist.set(2,insert));
+		assertEquals("Inserted", mylinkedlist.set(2,insert));
 		
 	}
 

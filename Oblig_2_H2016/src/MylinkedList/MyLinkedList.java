@@ -174,12 +174,12 @@ public class MyLinkedList<E> extends MyAbstractList<E> {
 	    size = 0;
 	    head = tail = null;
 	  }
-
+	  // OBLIG OPPGAVE
 	  @Override /** Return true if this list contains the element e */
 	  public boolean contains(E e) {
-		return indexOf(e) != -1;
+		return indexOf(e) != -1; // We already look for equals. We just check if we have any, if not return -1.
 	  }
-
+	  // OBLIG OPPGAVE
 	  @Override /** Return the element at the specified index */
 	  public E get(int index) {
 	    Node<E> target = head;
@@ -190,48 +190,63 @@ public class MyLinkedList<E> extends MyAbstractList<E> {
 	    if(target.element != null) return target.element; // Return the object found
 	    else return null; //else return null, but this should never happen..
 	  }
-
+	  // OBLIG OPPGAVE
 	  @Override /** Return the index of the head matching element in 
 	   *  this list. Return -1 if no match. */
 	  public int indexOf(E e) {
 	    int index = 0;
-	    Node target = head;
-	    while(target != null){
-	    	if(e.equals(target.element)){
-	    		return index;
+	    Node target = head;	// Start with the target set to head
+	    while(target != null){	// While we have something in target
+	    	if(e.equals(target.element)){	// Check if it equals e
+	    		return index;				// If it does, return the index
 	    	}
-	    	index++;
-	    	target = target.next;
+	    	index++;						// If this was not it, add one to index
+	    	target = target.next;			// Set target to the nest element and repeat
 	    }
-	    return -1;
+	    return -1;							// No luck? We return -1
 	  }
-
+	  // OBLIG OPPGAVE
 	  @Override /** Return the index of the last matching element in 
 	   *  this list. Return -1 if no match. */
 	  public int lastIndexOf(E e) {
-	    if(indexOf(e) == -1) return -1;
-	    Node<E> target = head;
-	    int index = 0;
-	    int i= 0;
-	    while(i < size){
-	    	if(e.equals(target.element)){
-	    		index = i;
+	    if(indexOf(e) == -1) return -1;	// Do a quick check to see if the element is in the list at all, if not return -1
+	    Node<E> target = head;			// Set target to head
+	    int index = 0;					// index
+	    int i= 0;						// i
+	    while(i < size){				// While i is smaller than the size of the list
+	    	if(e.equals(target.element)){ // Check if e equals the content of the target
+	    		index = i;				// If it does, set the index to the value of i
 	    	}
-	    	i++;
-	    	target = target.next;
+	    	i++;						// Increase i	
+	    	target = target.next;		// set target to next object, rinse and repeat
 	    }
-	    return index;
+	    return index;					// Return the final value of index
 	  }
-
+	  // OBLIG OPPGAVE
 	  @Override /** Replace the element at the specified position 
 	   *  in this list with the specified element. */
 	  public E set(int index, E e) {
-		Node<E> target = head;
-	    for(int i = 0; i < index; i++){
-	    	target = target.next;
-	    }
-	    target.next = new Node<E>(e);
-		return target.element;
+		Node<E> target = head;					// Set target to head
+		Node<E> temp;							// Make Node temp
+		Node<E> returnElement;					// Make Node to hold return element
+		if(index <= 1){							// If index is 1 or less we handle the head
+			temp = target.next;					// Set temp to next object
+			Node<E> newHead = new Node<E>(e);	// Set a new Node to hold the new object first
+		    newHead.next = temp; 				// Set target next in to newhead
+		    head = newHead;						// Set head to out new head
+		    returnElement = head;				// Set the return element to hold head
+		}
+		else{
+			for(int i = 1; i < index - 1; i++){ // If we want to handle anything but the first and last element
+		    	target = target.next;			// Set target to next object until we reach the object we are looking for
+		    }
+				
+		    temp = target.next;					// Set temp to hold the next object
+		    target.next = new Node<E>(e);		// Set targets next object to hold the new object
+		    (target.next).next = temp;			// Set our target next next's object to hold temp
+		    returnElement = target.next;		// Set return element to hold target next's object
+		}
+		return returnElement.element;			// Return the element we put in. ( Don't know what we are supposed to return here..)
 	  }
 
 	  @Override /** Override iterator() defined in Iterable */
