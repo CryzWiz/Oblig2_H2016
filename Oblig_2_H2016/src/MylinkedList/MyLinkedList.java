@@ -183,8 +183,13 @@ public class MyLinkedList<E> extends MyAbstractList<E> {
 
 	  @Override /** Return the element at the specified index */
 	  public E get(int index) {
-	    System.out.println("Implementation left as an exercise");
-	    return null;
+	    Node<E> target = head;
+	    if(index > size) throw new NullPointerException("The list size is not that big"); // If index is bigger than the actual size
+	    for (int i = 0; i < index; i++) { // Search the list to the index before, and set target to the next object
+	    	target = target.next;
+	    } 
+	    if(target.element != null) return target.element; // Return the object found
+	    else return null;
 	  }
 
 	  @Override /** Return the index of the head matching element in 
