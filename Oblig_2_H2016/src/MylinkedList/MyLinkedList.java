@@ -177,8 +177,7 @@ public class MyLinkedList<E> extends MyAbstractList<E> {
 
 	  @Override /** Return true if this list contains the element e */
 	  public boolean contains(E e) {
-	    System.out.println("Implementation left as an exercise");
-	    return true;
+		return indexOf(e) != -1;
 	  }
 
 	  @Override /** Return the element at the specified index */
@@ -189,21 +188,39 @@ public class MyLinkedList<E> extends MyAbstractList<E> {
 	    	target = target.next;
 	    } 
 	    if(target.element != null) return target.element; // Return the object found
-	    else return null;
+	    else return null; //else return null.
 	  }
 
 	  @Override /** Return the index of the head matching element in 
 	   *  this list. Return -1 if no match. */
 	  public int indexOf(E e) {
-	    System.out.println("Implementation left as an exercise");
-	    return 0;
+	    int index = 0;
+	    Node target = head;
+	    while(target != null){
+	    	if(e.equals(target.element)){
+	    		return index;
+	    	}
+	    	index++;
+	    	target = target.next;
+	    }
+	    return -1;
 	  }
 
 	  @Override /** Return the index of the last matching element in 
 	   *  this list. Return -1 if no match. */
 	  public int lastIndexOf(E e) {
-	    System.out.println("Implementation left as an exercise");
-	    return 0;
+	    if(indexOf(e) == -1) return -1;
+	    Node<E> target = head;
+	    int index = 0;
+	    int i= 0;
+	    while(i < size){
+	    	if(e.equals(target.element)){
+	    		index = i;
+	    	}
+	    	i++;
+	    	target = target.next;
+	    }
+	    return index;
 	  }
 
 	  @Override /** Replace the element at the specified position 

@@ -1,16 +1,14 @@
 package MyLinkedListTest;
-
 import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import MylinkedList.MyLinkedList;
 
 public class MyLinkedListStringTest {
 	// Testing with Strings
 	private MyLinkedList mylinkedlist;
-	private String[] stringArray = {"Åse","Bjarne","Vidar","Øystein"};
+	private String[] stringArray = {"Bjarne","Åse","Vidar","Øystein","Åse","Stian"};
+	Object keyword = "Åse";
 	
 	@Before
 	public void initialize(){
@@ -24,10 +22,27 @@ public class MyLinkedListStringTest {
 		assertEquals(stringArray[0], mylinkedlist.getFirst());
 	}
 	
-	@Test(expected=ArrayIndexOutOfBoundsException.class)
+	@Test
 	public void testGet() {
-		assertEquals(stringArray[4], mylinkedlist.get(4));
+		assertEquals(stringArray[2], mylinkedlist.get(2));
+	}
+	
+	@Test(expected=NullPointerException.class)
+	public void testGetWithToBigIndex() {
 		assertEquals("The list size is not that big", mylinkedlist.get(12));
+		
+	}
+	
+	@Test
+	public void testContains(){
+		//assertTrue(mylinkedlist.contains(keyword));
+		assertEquals(true, mylinkedlist.contains(keyword));
+	}
+	
+	@Test
+	public void testlastIndexOf(){
+		//assertTrue(mylinkedlist.contains(keyword));
+		assertEquals(4, mylinkedlist.lastIndexOf(keyword));
 	}
 
 }
