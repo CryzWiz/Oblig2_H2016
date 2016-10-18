@@ -1,4 +1,7 @@
 package BST;
+
+import java.util.ArrayList;
+
 // Code copied from the textbook
 
 public class BST<E extends Comparable<E>> extends AbstractTree<E> {
@@ -94,16 +97,57 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 		preorder(root.right);
 	}
 	/** This inner class is static, because it does not access
-	110 any instance members defined in its outer class */
+	 any instance members defined in its outer class */
 	public static class TreeNode<E extends Comparable<E>> {
 		protected E element;
 		protected TreeNode<E> left;
 		protected TreeNode<E> right;
-	
+		protected TreeNode<E> parent;
 		public TreeNode(E e) {
 			element = e;
 		}
 	}
+	// OBLIG OPPGAVER START
+	
+	
+	/** Returns the node for the specified element
+	 * returns null if the element is not in the tree*/
+	public TreeNode<E> getNode(E element){
+		TreeNode<E> current = root;
+		if(search(element) != false){
+			while(current != null) {
+				if(element.compareTo(current.element) < 0) {
+					current = current.left;
+				}
+				else if(element.compareTo(current.element) > 0) {
+					current = current.right;
+				}
+				else // element matches current.element
+					return current; // Element is found, Returning the node
+			}
+		}
+		return null;
+	}
+	/** Returns true if the node for the element is a leaf */
+	public boolean isLeaf(E element){
+		TreeNode<E> current = getNode(element);
+		if(current.right == null && current.left == null)
+		return true;
+		else return false;
+	}
+	/** Returns the path of the elements from the specified element
+	 * to the root in an array list*/
+	public ArrayList<E> getPath(E e) {
+		ArrayList<TreeNode<E>> list = path(e);
+		ArrayList<E> reversedList = new ArrayList<>();
+		for(TreeNode<E> x: list){
+			reversedList.add(0,x.element);
+		}	
+		return reversedList;
+	}
+	
+	// OBLIG OPPGAVER SLUTT
+	
 	@Override /** Get the number of nodes in the tree */
 	public int getSize() {
 		return size;
@@ -114,9 +158,8 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 	}
 	
 	/** Returns a path from the root leading to the specified element */
-	public java.util.ArrayList<TreeNode<E>> path(E e) {
-	java.util.ArrayList<TreeNode<E>> list =
-	new java.util.ArrayList<>();
+	public ArrayList<TreeNode<E>> path(E e) {
+	ArrayList<TreeNode<E>> list = new ArrayList<>();
 	TreeNode<E> current = root; // Start from the root
 	while (current != null) {
 	list.add(current); // Add the node to the list

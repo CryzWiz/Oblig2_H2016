@@ -29,8 +29,13 @@ public class TestBST {
 		System.out.print("\nA path from the root to Peter is: ");
 		java.util.ArrayList<BST.TreeNode<String>> path = tree.path("Peter");
 		for (int i = 0; path != null && i < path.size(); i++)
-			System.out.print(path.get(i).element + " ");
-
+			System.out.println(path.get(i).element + " ");
+		System.out.println("Node to Peter: " + tree.getNode("Peter"));
+		Object test = tree.getNode("Peter").element;
+		System.out.println("Content of Node: " + test);
+		System.out.println("isLeaf: " + tree.isLeaf("Peter"));
+		System.out.println("GetPath: " + tree.getPath("Peter"));
+		
 		Integer[] numbers = {2, 4, 3, 1, 8, 5, 6, 7};
 		BST<Integer> intTree = new BST<>(numbers);
 		System.out.print("\nInorder (sorted): ");
