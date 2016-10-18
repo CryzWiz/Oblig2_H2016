@@ -132,8 +132,9 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 		return null;
 	}
 	/** Returns true if the node for the element is a leaf */
-	private boolean isLeaf(E element){
+	public boolean isLeaf(E element){
 		TreeNode<E> current = getNode(element);
+		if(current == null) return false;
 		if(current.right == null && current.left == null) // If we have no nodes on the sides, we have to be a leaf
 		return true;
 		else return false;								// If not, we are a parent
@@ -198,19 +199,40 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 			else
 				break; // Element is in the tree pointed at by current
 		}
-		if (current == null)
+		if (current == null){
 			return false; // Element is not in the tree
-		// Case 1: current has no left child
+		}
+		parent = current.parent;
+		
+		if(current.left == current.right){
+			if(e.compareTo(parent.element) < 0){
+				parent.left = null;
+			}
+			else
+				parent.right = null;
+		}
+			// Case 1: current has no left child
 		if (current.left == null) {
 			// Connect the parent with the right child of the current node
 			if (parent == null) {
 				root = current.right;
+				if(root != null){
+					root.parent = null;
+				}
 			}
 			else {
-				if (e.compareTo(parent.element) < 0)
+				if (e.compareTo(parent.element) < 0) {
 					parent.left = current.right;
-				else
+					if(parent.left != null){
+					parent.left.parent = parent;
+					}
+				}
+				else {
 					parent.right = current.right;
+					if(parent.right != null){
+					parent.right.parent = parent;
+					}
+				}
 			}
 		}
 		else {
@@ -226,11 +248,14 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 			// Replace the element in current by the element in rightMost
 			current.element = rightMost.element;
 			// Eliminate rightmost node
-			if (parentOfRightMost.right == rightMost)
+			if (parentOfRightMost.right == rightMost){
 				parentOfRightMost.right = rightMost.left;
-			else
+			}	
+			else {
 				// Special case: parentOfRightMost == current
 				parentOfRightMost.left = rightMost.left;
+				
+			}
 		}
 	 
 		size--;
@@ -275,10 +300,47 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 			 list.clear(); // Clear the list
 			 inorder(); // Rebuild the list
 		 }
-	 }	   
-		 /** Remove all elements from the tree */
-		 public void clear() {
-		  root = null;
-		  size = 0;
-		 }
+	 }	
+	 // Inner class PreOrderIterator
+	 private class PreOrderIterator implements java.util.Iterator<E> {
+		 // Store the elements in a list
+		 private java.util.ArrayList<E> list = new java.util.ArrayList<>();
+		 private int current = 0; // Point to the current element in list
+		 public PreOrderIterator() {
+			preorder(); // Traverse binary tree and store elements in list
+		 }	  
+		/** PreOrder traversal from the root*/
+		private void PreOrderIterator() {
+			preorder(root);
+		}	   
+		/** PreOrder traversal from a subtree */
+		private void PreOrderIterator(TreeNode<E> root) {
+			if (root == null) return;
+				list.add(root.element);
+				preorder(root.left);
+				preorder(root.right);
+				
+			}	   
+		@Override /** More elements for traversing? */
+		public boolean hasNext() {
+			if (current < list.size())
+				return true;
+			return false;
+		}   
+		@Override /** Get the current element and move to the next */
+		public E next() {
+			return list.get(current++);
+		}   
+		@Override /** Remove the current element */
+		public void remove() {
+			delete(list.get(current)); // Delete the current element
+			list.clear(); // Clear the list
+			preorder(); // Rebuild the list
+		}
+	}
+	/** Remove all elements from the tree */
+	public void clear() {
+		root = null;
+		size = 0;
+	}
 }
