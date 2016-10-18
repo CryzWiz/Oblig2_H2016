@@ -10,6 +10,7 @@ public class MyLinkedListStringTest {
 	private String[] stringArray = {"Bjarne","Åse","Vidar","Øystein","Åse","Stian"};
 	String keyword = new String("Åse");
 	String insert = new String("Inserted");
+	String inserted = new String("This is inserted");
 	
 	@Before
 	public void initialize(){
@@ -19,13 +20,9 @@ public class MyLinkedListStringTest {
 		}
 	}
 	@Test
-	public void test() {
-		assertEquals(stringArray[0], mylinkedlist.getFirst());
-	}
-	
-	@Test
 	public void testGet() {
 		assertEquals(stringArray[2], mylinkedlist.get(2));
+		assertEquals(stringArray[4], mylinkedlist.get(4));
 	}
 	
 	@Test(expected=NullPointerException.class)
@@ -36,19 +33,25 @@ public class MyLinkedListStringTest {
 	
 	@Test
 	public void testContains(){
-		//assertTrue(mylinkedlist.contains(keyword));
 		assertEquals(true, mylinkedlist.contains(keyword));
+		assertTrue(mylinkedlist.contains(new String("Stian")));
+		assertFalse(mylinkedlist.contains(new String("Kjartan")));
 	}
 	
 	@Test
 	public void testlastIndexOf(){
-		//assertTrue(mylinkedlist.contains(keyword));
 		assertEquals(4, mylinkedlist.lastIndexOf(keyword));
+		assertEquals(-1, mylinkedlist.lastIndexOf(""));
+		assertEquals(4, mylinkedlist.lastIndexOf("Åse"));
 	}
 	
 	@Test
 	public void testSet(){
-		assertEquals("Inserted", mylinkedlist.set(2,insert));
+		assertEquals("Inserted", mylinkedlist.set(0,insert));
+		mylinkedlist.set(5,inserted);
+		assertEquals(inserted, mylinkedlist.get(5));
+		assertEquals(inserted, mylinkedlist.getLast());
+		
 		
 	}
 

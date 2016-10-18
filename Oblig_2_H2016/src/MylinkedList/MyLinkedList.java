@@ -226,28 +226,39 @@ public class MyLinkedList<E> extends MyAbstractList<E> {
 	  @Override /** Replace the element at the specified position 
 	   *  in this list with the specified element. */
 	  public E set(int index, E e) {
-		Node<E> target = head;					// Set target to head
+		Node<E> newNode = new Node<E>(e);		// Set target to head
 		Node<E> temp;							// Make Node temp
 		Node<E> returnElement;					// Make Node to hold return element
-		if(index <= 1){							// If index is 1 or less we handle the head
+		if(index - 1 <= 0){						// If index is 0 we handle the head
+			Node<E> target = head;				// Target head
 			temp = target.next;					// Set temp to next object
-			Node<E> newHead = new Node<E>(e);	// Set a new Node to hold the new object first
+			Node<E> newHead = newNode;        // Set a new Node to hold the new object first
 		    newHead.next = temp; 				// Set target next in to newhead
-		    head = newHead;						// Set head to out new head
+		    head = newHead;						// Set head to new head
 		    returnElement = head;				// Set the return element to hold head
 		}
+		else if(index == size - 1){				// If the index is size - 1 we handle the tail
+			Node<E> target = head;				// Set target to head
+			for(int i = 1; i < index; i++){		// Search through until we hit the next to last object
+				target = target.next;			// Set target to the next object on the list
+			}
+			temp = target.next;					// Set the last target to temp
+			target.next = newNode;				// Set the next node to be the new node
+			tail = newNode;						// Set tail to hold the new last element
+			returnElement = tail;				// Set returnelement to hold the new tail
+		}
 		else{
+			Node<E> target = head;				// Target head
 			for(int i = 1; i < index - 1; i++){ // If we want to handle anything but the first and last element
 		    	target = target.next;			// Set target to next object until we reach the object we are looking for
 		    }
-				
 		    temp = target.next;					// Set temp to hold the next object
 		    target.next = new Node<E>(e);		// Set targets next object to hold the new object
 		    (target.next).next = temp;			// Set our target next next's object to hold temp
 		    returnElement = target.next;		// Set return element to hold target next's object
 		}
 		return returnElement.element;			// Return the element we put in. ( Don't know what we are supposed to return here..)
-	  }
+	  }											// But we are storing all the old values, so we can change this in a heartbeat.
 
 	  @Override /** Override iterator() defined in Iterable */
 	  public java.util.Iterator<E> iterator() {
