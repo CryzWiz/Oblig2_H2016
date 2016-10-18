@@ -131,19 +131,19 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 	/** Returns true if the node for the element is a leaf */
 	public boolean isLeaf(E element){
 		TreeNode<E> current = getNode(element);
-		if(current.right == null && current.left == null)
+		if(current.right == null && current.left == null) // If we have no nodes on the sides, we have to be a leaf
 		return true;
-		else return false;
+		else return false;								// If not, we are a parent
 	}
 	/** Returns the path of the elements from the specified element
 	 * to the root in an array list*/
 	public ArrayList<E> getPath(E e) {
-		ArrayList<TreeNode<E>> list = path(e);
-		ArrayList<E> reversedList = new ArrayList<>();
-		for(TreeNode<E> x: list){
-			reversedList.add(0,x.element);
+		ArrayList<TreeNode<E>> list = path(e); 			// Get the path from root to element
+		ArrayList<E> reversedList = new ArrayList<>();	// Make a second list
+		for(TreeNode<E> x: list){						// Traverse the path from root
+			reversedList.add(0,x.element);				// and reverse it
 		}	
-		return reversedList;
+		return reversedList;							// return the reversed list
 	}
 	
 	// OBLIG OPPGAVER SLUTT
