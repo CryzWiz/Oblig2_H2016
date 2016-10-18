@@ -177,7 +177,7 @@ public class MyLinkedList<E> extends MyAbstractList<E> {
 	  // OBLIG OPPGAVE
 	  @Override /** Return true if this list contains the element e */
 	  public boolean contains(E e) {
-		return indexOf(e) != -1; // We already look for equals. We just check if we have any, if not return -1.
+		return indexOf(e) != -1; // We already look for equals. We just check if we have any, if not return false.
 	  }
 	  // OBLIG OPPGAVE
 	  @Override /** Return the element at the specified index */
