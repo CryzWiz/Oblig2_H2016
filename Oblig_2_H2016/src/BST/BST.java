@@ -1,5 +1,4 @@
 package BST;
-
 import java.util.ArrayList;
 
 // Code copied from the textbook
@@ -52,10 +51,14 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 				}
 				else return false; // Duplicate node not inserted
 				// Create the new node and attach it to the parent node
-				if(e.compareTo(parent.element) < 0)
+				if(e.compareTo(parent.element) < 0){
 					parent.left = createNewNode(e);
-				else
+					parent.left.parent = parent;
+				}
+				else {
 					parent.right = createNewNode(e);
+					parent.right.parent = parent;
+				}
 		}
 		size++;
 		return true; // Element inserted successfully
@@ -107,20 +110,20 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 			element = e;
 		}
 	}
-	// OBLIG OPPGAVER START
 	
+	// OBLIG OPPGAVER START
 	
 	/** Returns the node for the specified element
 	 * returns null if the element is not in the tree*/
-	public TreeNode<E> getNode(E element){
+	private TreeNode<E> getNode(E element){
 		TreeNode<E> current = root;
 		if(search(element) != false){
 			while(current != null) {
-				if(element.compareTo(current.element) < 0) {
-					current = current.left;
+				if(element.compareTo(current.element) < 0) { // Compare element to the left
+					current = current.left;					// Go left
 				}
-				else if(element.compareTo(current.element) > 0) {
-					current = current.right;
+				else if(element.compareTo(current.element) > 0) {	// Compare element to the right
+					current = current.right;						// Go right
 				}
 				else // element matches current.element
 					return current; // Element is found, Returning the node
@@ -129,7 +132,7 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 		return null;
 	}
 	/** Returns true if the node for the element is a leaf */
-	public boolean isLeaf(E element){
+	private boolean isLeaf(E element){
 		TreeNode<E> current = getNode(element);
 		if(current.right == null && current.left == null) // If we have no nodes on the sides, we have to be a leaf
 		return true;
@@ -138,12 +141,13 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 	/** Returns the path of the elements from the specified element
 	 * to the root in an array list*/
 	public ArrayList<E> getPath(E e) {
-		ArrayList<TreeNode<E>> list = path(e); 			// Get the path from root to element
-		ArrayList<E> reversedList = new ArrayList<>();	// Make a second list
-		for(TreeNode<E> x: list){						// Traverse the path from root
-			reversedList.add(0,x.element);				// and reverse it
-		}	
-		return reversedList;							// return the reversed list
+		TreeNode<E> target = getNode(e); 			// Get the path from root to element
+		ArrayList<E> path = new ArrayList<>();		// Make a second list
+		while(target != null) {
+			path.add(target.element);
+			target = target.parent;
+		}
+		return path;								// return the reversed list
 	}
 	
 	// OBLIG OPPGAVER SLUTT
@@ -175,110 +179,106 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 	
 	 	return list; // Return an array list of nodes
 	 }
-	 @Override /** Delete an element from the binary search tree.
-	 * Return true if the element is deleted successfully.
-	 * Return false if the element is not in the tree. */
-	 public boolean delete(E e) {
-		 // Locate the node to be deleted and also locate its parent node
-		 TreeNode<E> parent = null;
-		 TreeNode<E> current = root;
-		 while (current != null) {
-			 if (e.compareTo(current.element) < 0) {
-				 parent = current;
-				 current = current.left;
-			 }
-			 else if (e.compareTo(current.element) > 0) {
-				 parent = current;
-				 current = current.right;
-			 }
-			 else
-				 break; // Element is in the tree pointed at by current
-		 }
-		 if (current == null)
-			 return false; // Element is not in the tree
-		 // Case 1: current has no left child
-		 if (current.left == null) {
-			 // Connect the parent with the right child of the current node
-			 if (parent == null) {
-				 root = current.right;
-			 }
-			 else {
-				 if (e.compareTo(parent.element) < 0)
-					 parent.left = current.right;
-				 else
-					 parent.right = current.right;
-			 }
-		 }
-		 else {
-			 // Case 2: The current node has a left child.
-			 // Locate the rightmost node in the left subtree of
-			 // the current node and also its parent.
-			 TreeNode<E> parentOfRightMost = current;
-			 TreeNode<E> rightMost = current.left;
+	@Override /** Delete an element from the binary search tree.
+	* Return true if the element is deleted successfully.
+	* Return false if the element is not in the tree. */
+	public boolean delete(E e) {
+		// Locate the node to be deleted and also locate its parent node
+		TreeNode<E> parent = null;
+		TreeNode<E> current = root;
+		while (current != null) {
+			if (e.compareTo(current.element) < 0) {
+				parent = current;
+				current = current.left;
+			}
+			else if (e.compareTo(current.element) > 0) {
+				parent = current;
+				current = current.right;
+			}
+			else
+				break; // Element is in the tree pointed at by current
+		}
+		if (current == null)
+			return false; // Element is not in the tree
+		// Case 1: current has no left child
+		if (current.left == null) {
+			// Connect the parent with the right child of the current node
+			if (parent == null) {
+				root = current.right;
+			}
+			else {
+				if (e.compareTo(parent.element) < 0)
+					parent.left = current.right;
+				else
+					parent.right = current.right;
+			}
+		}
+		else {
+			// Case 2: The current node has a left child.
+			// Locate the rightmost node in the left subtree of
+			// the current node and also its parent.
+			TreeNode<E> parentOfRightMost = current;
+			TreeNode<E> rightMost = current.left;
+			while (rightMost.right != null) {
+				parentOfRightMost = rightMost;
+				rightMost = rightMost.right; // Keep going to the right
+			}
+			// Replace the element in current by the element in rightMost
+			current.element = rightMost.element;
+			// Eliminate rightmost node
+			if (parentOfRightMost.right == rightMost)
+				parentOfRightMost.right = rightMost.left;
+			else
+				// Special case: parentOfRightMost == current
+				parentOfRightMost.left = rightMost.left;
+		}
 	 
-			 while (rightMost.right != null) {
-				 parentOfRightMost = rightMost;
-				 rightMost = rightMost.right; // Keep going to the right
-			 }
-			 // Replace the element in current by the element in rightMost
-			 current.element = rightMost.element;
-	 
-			 // Eliminate rightmost node
-			 if (parentOfRightMost.right == rightMost)
-				 parentOfRightMost.right = rightMost.left;
-			 else
-				 // Special case: parentOfRightMost == current
-				 parentOfRightMost.left = rightMost.left;
+		size--;
+		return true; // Element deleted successfully
+	  } 
+	 @Override /** Obtain an iterator. Use inorder. */
+	 public java.util.Iterator<E> iterator() {
+		 return new InorderIterator();
+	 }	
+	 // Inner class InorderIterator
+	 private class InorderIterator implements java.util.Iterator<E> {
+		 // Store the elements in a list
+		 private java.util.ArrayList<E> list = new java.util.ArrayList<>();
+		 private int current = 0; // Point to the current element in list
+		 public InorderIterator() {
+			 inorder(); // Traverse binary tree and store elements in list
+		 }	  
+		 /** Inorder traversal from the root*/
+		 private void inorder() {
+			 inorder(root);
+		 }	   
+		 /** Inorder traversal from a subtree */
+		 private void inorder(TreeNode<E> root) {
+			 if (root == null) return;
+			 inorder(root.left);
+			 list.add(root.element);
+			 inorder(root.right);
+		 }	   
+		 @Override /** More elements for traversing? */
+		 public boolean hasNext() {
+			 if (current < list.size())
+				 return true;
+			 return false;
+		 }   
+		 @Override /** Get the current element and move to the next */
+		 public E next() {
+			 return list.get(current++);
+		 }   
+		 @Override /** Remove the current element */
+		 public void remove() {
+			 delete(list.get(current)); // Delete the current element
+			 list.clear(); // Clear the list
+			 inorder(); // Rebuild the list
 		 }
-	 
-		 size--;
-		 return true; // Element deleted successfully
-	  	} 
-	  @Override /** Obtain an iterator. Use inorder. */
-	  public java.util.Iterator<E> iterator() {
-		  return new InorderIterator();
-	  }	
-	  // Inner class InorderIterator
-	  private class InorderIterator implements java.util.Iterator<E> {
-		  // Store the elements in a list
-		  private java.util.ArrayList<E> list = new java.util.ArrayList<>();
-		  private int current = 0; // Point to the current element in list
-	  
-		  public InorderIterator() {
-			  inorder(); // Traverse binary tree and store elements in list
-		  }	  
-		  /** Inorder traversal from the root*/
-		  private void inorder() {
-			  inorder(root);
-		  }	   
-		  /** Inorder traversal from a subtree */
-		  private void inorder(TreeNode<E> root) {
-			  if (root == null) return;
-			  inorder(root.left);
-			  list.add(root.element);
-			  inorder(root.right);
-		  }	   
-		  @Override /** More elements for traversing? */
-		  public boolean hasNext() {
-			  if (current < list.size())
-				  return true;
-	   
-			  return false;
-		  }   
-		  @Override /** Get the current element and move to the next */
-		  public E next() {
-			  return list.get(current++);
-		  }   
-		  @Override /** Remove the current element */
-		  public void remove() {
-			  delete(list.get(current)); // Delete the current element
-			  list.clear(); // Clear the list
-			  inorder(); // Rebuild the list
-		  }
-	  }	   
-		  /** Remove all elements from the tree */
-		  public void clear() {
-		   root = null;
-	    	size = 0;
-		  }
+	 }	   
+		 /** Remove all elements from the tree */
+		 public void clear() {
+		  root = null;
+		  size = 0;
+		 }
 }
