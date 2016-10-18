@@ -1,5 +1,5 @@
 package BST;
-
+//Code copied from the textbook
 public interface Tree<E> extends Iterable {
 	/** Return true if the element is in the tree */
 	public boolean search(E e);
