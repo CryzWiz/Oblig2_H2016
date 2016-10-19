@@ -10,12 +10,14 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 	public BST() {
 		
 	}
+	
 	/** Create a binary search tree from an array of objects */
 	public BST(E[] objects) {
 		for(int i = 0; i < objects.length; i++) {
 			insert(objects[i]);
 		}
 	}
+	
 	@Override /** Return true if the element is in the tree */
 	public boolean search(E e) {
 		TreeNode<E> current = root; // Start from the root
@@ -32,6 +34,7 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 		}
 		return false;
 	}
+	
 	@Override/** Insert element e into the binary search tree.
 	 * Return true if the element is inserted successfully. */
 	public boolean insert(E e) {
@@ -49,7 +52,8 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 					parent = current;
 					current = current.right;
 				}
-				else return false; // Duplicate node not inserted
+				else 
+					return false; // Duplicate node not inserted
 				// Create the new node and attach it to the parent node
 				if(e.compareTo(parent.element) < 0){
 					parent.left = createNewNode(e);
@@ -63,13 +67,16 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 		size++;
 		return true; // Element inserted successfully
 	}
+	
 	protected TreeNode<E> createNewNode(E e) {
 		return new TreeNode<>(e);
 	}
+	
 	@Override /** Inorder traversal from the root */
 	public void inorder() {
 		inorder(root);
 	}
+	
 	/** Inorder traversal from a subtree */
 	protected void inorder(TreeNode<E> root) {
 		if (root == null) return;
@@ -77,10 +84,12 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 		System.out.print(root.element + " ");
 		inorder(root.right);
 	}
+	
 	@Override /** Postorder traversal from the root */
 	public void postorder() {
 		postorder(root);
 	}
+	
 	/** Postorder traversal from a subtree */
 	protected void preorder(TreeNode<E> root) {
 		if (root == null) return;
@@ -88,10 +97,12 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 		postorder(root.right);
 		System.out.print(root.element + " ");
 	}
+	
 	@Override /** Preorder traversal from the root */
 	public void preorder() {
 		preorder(root);
 	}
+	
 	/** Preorder traversal from a subtree */
 	protected void postorder(TreeNode<E> root) {
 		if (root == null) return;
@@ -99,13 +110,16 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 		preorder(root.left);
 		preorder(root.right);
 	}
+	
+	
 	/** This inner class is static, because it does not access
 	 any instance members defined in its outer class */
 	public static class TreeNode<E extends Comparable<E>> {
-		protected E element;
+		public E element;
 		protected TreeNode<E> left;
 		protected TreeNode<E> right;
 		protected TreeNode<E> parent;
+		
 		public TreeNode(E e) {
 			element = e;
 		}
@@ -115,7 +129,7 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 	
 	/** Returns the node for the specified element
 	 * returns null if the element is not in the tree*/
-	private TreeNode<E> getNode(E element){
+	public TreeNode<E> getNode(E element){
 		TreeNode<E> current = root;
 		if(search(element) != false){
 			while(current != null) {
@@ -131,6 +145,7 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 		}
 		return null;
 	}
+	
 	/** Returns true if the node for the element is a leaf */
 	public boolean isLeaf(E element){
 		TreeNode<E> current = getNode(element);
@@ -139,6 +154,7 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 		return true;
 		else return false;								// If not, we are a parent
 	}
+	
 	/** Returns the path of the elements from the specified element
 	 * to the root in an array list*/
 	public ArrayList<E> getPath(E e) {
@@ -157,6 +173,7 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 	public int getSize() {
 		return size;
 	}
+	
 	/** Returns the root of the tree */
 	public TreeNode<E> getRoot() {
 	return root;
@@ -180,6 +197,7 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 	
 	 	return list; // Return an array list of nodes
 	 }
+	
 	@Override /** Delete an element from the binary search tree.
 	* Return true if the element is deleted successfully.
 	* Return false if the element is not in the tree. */
@@ -261,83 +279,100 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 		size--;
 		return true; // Element deleted successfully
 	  } 
-	 @Override /** Obtain an iterator. Use inorder. */
+	
+	 @Override /** I have changed this to call for preorderIterator instead */
 	 public java.util.Iterator<E> iterator() {
-		 return new InorderIterator();
-	 }	
+		 return new preorderIterator();
+	 }
+	 
 	 // Inner class InorderIterator
 	 private class InorderIterator implements java.util.Iterator<E> {
 		 // Store the elements in a list
 		 private java.util.ArrayList<E> list = new java.util.ArrayList<>();
 		 private int current = 0; // Point to the current element in list
+		 
 		 public InorderIterator() {
 			 inorder(); // Traverse binary tree and store elements in list
 		 }	  
+		 
 		 /** Inorder traversal from the root*/
 		 private void inorder() {
 			 inorder(root);
 		 }	   
+		 
 		 /** Inorder traversal from a subtree */
 		 private void inorder(TreeNode<E> root) {
 			 if (root == null) return;
 			 inorder(root.left);
 			 list.add(root.element);
 			 inorder(root.right);
-		 }	   
+		 }	 
+		 
 		 @Override /** More elements for traversing? */
 		 public boolean hasNext() {
 			 if (current < list.size())
 				 return true;
 			 return false;
-		 }   
+		 }  
+		 
 		 @Override /** Get the current element and move to the next */
 		 public E next() {
 			 return list.get(current++);
-		 }   
+		 }  
+		 
 		 @Override /** Remove the current element */
 		 public void remove() {
 			 delete(list.get(current)); // Delete the current element
 			 list.clear(); // Clear the list
 			 inorder(); // Rebuild the list
 		 }
+		 
 	 }	
-	 // Inner class PreOrderIterator
-	 private class PreOrderIterator implements java.util.Iterator<E> {
+	 
+	 // Inner class PreOrderIterator - Our iterator
+	 private class preorderIterator implements java.util.Iterator<E> {
+		 
 		 // Store the elements in a list
 		 private java.util.ArrayList<E> list = new java.util.ArrayList<>();
 		 private int current = 0; // Point to the current element in list
-		 public PreOrderIterator() {
+		 public preorderIterator() {
 			preorder(); // Traverse binary tree and store elements in list
-		 }	  
+		 }
+		 
 		/** PreOrder traversal from the root*/
-		private void PreOrderIterator() {
+		private void preorder() {
 			preorder(root);
-		}	   
+		}
+		
 		/** PreOrder traversal from a subtree */
-		private void PreOrderIterator(TreeNode<E> root) {
+		private void preorder(TreeNode<E> root) {
 			if (root == null) return;
 				list.add(root.element);
 				preorder(root.left);
-				preorder(root.right);
-				
-			}	   
+				preorder(root.right);	
+		}
+		
 		@Override /** More elements for traversing? */
 		public boolean hasNext() {
 			if (current < list.size())
 				return true;
 			return false;
-		}   
+		}
+		
 		@Override /** Get the current element and move to the next */
 		public E next() {
 			return list.get(current++);
-		}   
+		}
+		
 		@Override /** Remove the current element */
 		public void remove() {
 			delete(list.get(current)); // Delete the current element
 			list.clear(); // Clear the list
 			preorder(); // Rebuild the list
 		}
+		
 	}
+	 
 	/** Remove all elements from the tree */
 	public void clear() {
 		root = null;
