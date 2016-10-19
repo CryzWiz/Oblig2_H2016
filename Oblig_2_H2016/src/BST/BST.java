@@ -124,6 +124,8 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 			element = e;
 		}
 	}
+
+	
 	
 	// OBLIG OPPGAVER START
 	
@@ -168,6 +170,7 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 	}
 	
 	// OBLIG OPPGAVER SLUTT
+
 	
 	@Override /** Get the number of nodes in the tree */
 	public int getSize() {

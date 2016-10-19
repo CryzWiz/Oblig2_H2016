@@ -10,10 +10,6 @@ import BST.BST;
 public class BSTTest {
 	private BST<Integer> tree;
 	private int[] numbers = {3,2,1,5,6,44,23,99,54,21,35,25};
-	private int[] realNodes = {3,2,1,5,6,44,23,99,54,21,35,25};
-	private int[] falseNodes = {4,7,8,12,17,24,49,98,82,101,-26};
-	private int[] isLeafs = {1,21,25,54};
-	private int[] isNOTLeafs = {3,2};
 	
 	@Before
 	public void initialize(){
@@ -24,12 +20,14 @@ public class BSTTest {
 	}
 	@Test
 	public void isLeafsTest() {
+		int[] isLeafs = {1,21,25,54};
 		for(int i=0;i<isLeafs.length;i++){
 			assertTrue(tree.isLeaf(isLeafs[i]));
 		}	
 	}
 	@Test
 	public void isNOTLeafsTest() {
+		int[] isNOTLeafs = {3,2,5,6,44,23,99,35};
 		for(int i=0;i<isNOTLeafs.length;i++){
 			assertEquals(false, tree.isLeaf(isNOTLeafs[i]));
 		}	
@@ -37,24 +35,26 @@ public class BSTTest {
 	
 	@Test
 	public void getNodeTestForRealNodes() {
+		int[] realNodes = {3,2,1,5,6,44,23,99,54,21,35,25};
 		for(int i=0;i<realNodes.length;i++){
 			assertTrue(tree.getNode(realNodes[i]) != null);
 		}
 	}
 	@Test
 	public void getNodeTestForUnrealNodes() {
+		int[] falseNodes = {4,7,8,12,17,24,49,98,82,101,-26};
 		for(int i=0;i<falseNodes.length;i++){
-			assertFalse(tree.getNode(falseNodes[i]) != null);
+			assertTrue(tree.getNode(falseNodes[i]) == null);
 		}
 	}
 	@Test
-	public void getPathTestForCorrectPathReturn() {
-		ArrayList<Integer> Correctpath1 = new ArrayList<>(Arrays.asList(1,2,3));
-		ArrayList<Integer> Correctpath2 = new ArrayList<>(Arrays.asList(21,23,44,6,5,3));
-		ArrayList<Integer> Correctpath3 = new ArrayList<>(Arrays.asList(35,23,44,6,5,3));
-		assertEquals(Correctpath1, tree.getPath(1));
-		assertEquals(Correctpath2, tree.getPath(21));
-		assertEquals(Correctpath3, tree.getPath(35));
+	public void checkIfGetPathReturnsCorrectPath() {
+		ArrayList<Integer> CorrectPath1 = new ArrayList<>(Arrays.asList(1,2,3));
+		ArrayList<Integer> CorrectPath2 = new ArrayList<>(Arrays.asList(21,23,44,6,5,3));
+		ArrayList<Integer> CorrectPath3 = new ArrayList<>(Arrays.asList(35,23,44,6,5,3));
+		assertEquals(CorrectPath1, tree.getPath(1));
+		assertEquals(CorrectPath2, tree.getPath(21));
+		assertEquals(CorrectPath3, tree.getPath(35));
 	}
 	@Test
 	public void testOrderAfterDelete() {
