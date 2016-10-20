@@ -151,7 +151,7 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 	/** Returns true if the node for the element is a leaf */
 	public boolean isLeaf(E element){
 		TreeNode<E> current = getNode(element);
-		if(current == null) return false;
+		if(current == null) return false;					// If we can't find the node, we return false (a non-existent node is no leaf)
 		if(current.right == null && current.left == null) // If we have no nodes on the sides, we have to be a leaf
 		return true;
 		else return false;								// If not, we are a parent
@@ -160,13 +160,13 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 	/** Returns the path of the elements from the specified element
 	 * to the root in an array list*/
 	public ArrayList<E> getPath(E e) {
-		TreeNode<E> target = getNode(e); 			// Get the path from root to element
-		ArrayList<E> path = new ArrayList<>();		// Make a second list
-		while(target != null) {
-			path.add(target.element);
-			target = target.parent;
+		TreeNode<E> target = getNode(e); 			// Get the node we are looking for
+		ArrayList<E> path = new ArrayList<>();		// Make a second list containing our path
+		while(target != null) {						// while we have a node
+			path.add(target.element);				// add the node
+			target = target.parent;					// and set the next target to its parent
 		}
-		return path;								// return the reversed list
+		return path;								// return the path from the element back to root
 	}
 	
 	// OBLIG OPPGAVER SLUTT
@@ -244,14 +244,14 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 			else {
 				if (e.compareTo(parent.element) < 0) {
 					parent.left = current.right;
-					if(parent.left != null){
-					parent.left.parent = parent;
+					if(parent.left != null){ // If current parents left node is not empty
+					parent.left.parent = parent; // Set parents left parent to current parent
 					}
 				}
 				else {
 					parent.right = current.right;
-					if(parent.right != null){
-					parent.right.parent = parent;
+					if(parent.right != null){ 	// If current parents right node is not empty
+					parent.right.parent = parent;	// Set parents right parent to current parent
 					}
 				}
 			}
@@ -332,6 +332,11 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 		 
 	 }	
 	 
+	 /* This is literally a copy of inorder iterator with just method names changed to
+	  * preorder(), methodcalls to preorder() and the method: private void preorder(TreeNode<E> root) 
+	  * changed according to the textbook
+	  */
+	 
 	 // Inner class PreOrderIterator - Our iterator
 	 private class preorderIterator implements java.util.Iterator<E> {
 		 
@@ -350,7 +355,7 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 		/** PreOrder traversal from a subtree */
 		private void preorder(TreeNode<E> root) {
 			if (root == null) return;
-				list.add(root.element);
+				list.add(root.element); // This is changed according to the textbook example on page 935( + 1 2 )
 				preorder(root.left);
 				preorder(root.right);	
 		}
