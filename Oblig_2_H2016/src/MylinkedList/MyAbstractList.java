@@ -2,7 +2,7 @@ package MylinkedList;
 
 public abstract class MyAbstractList<E> implements MyList<E> {
 	  protected int size = 0; // The size of the list
-
+ 
 	  /** Create a default list */
 	  protected MyAbstractList() {
 	  }
@@ -13,7 +13,7 @@ public abstract class MyAbstractList<E> implements MyList<E> {
 	      add(objects[i]);
 	  }
 
-	  @Override /** Add a new element at the end of this list */
+	  @Override /** Add a new element at the end of this list  */
 	  public void add(E e) {
 	    add(size, e);
 	  }

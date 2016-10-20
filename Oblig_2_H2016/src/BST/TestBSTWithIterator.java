@@ -16,7 +16,7 @@ public class TestBSTWithIterator {
 		java.util.Iterator<String> IteratorTree = tree.iterator();
 		
 		while(IteratorTree.hasNext()){
-			System.out.print(IteratorTree.next() + " ");
+			System.out.print(IteratorTree.next().toUpperCase() + " ");
 		}
 			
 	}

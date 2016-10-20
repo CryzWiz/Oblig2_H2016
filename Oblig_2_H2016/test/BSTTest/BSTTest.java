@@ -20,7 +20,7 @@ public class BSTTest {
 	}
 	@Test // Check if a leaf returns true
 	public void isLeafsTest() {
-		int[] isLeafs = {1,21,25,54}; // Are leafs
+		int[] isLeafs = {1,21,25,54};       // Are leafs
 		for(int i=0;i<isLeafs.length;i++){	// For every leaf
 			assertTrue(tree.isLeaf(isLeafs[i]));	// Confirm it is a leaf
 		}	

@@ -1,5 +1,5 @@
 package BST;
-//Code copied from the textbook
+ //Code copied from the textbook
 public abstract class AbstractTree<E> implements Tree<E> {
 	
 	@Override /** Inorder traversal from the root*/

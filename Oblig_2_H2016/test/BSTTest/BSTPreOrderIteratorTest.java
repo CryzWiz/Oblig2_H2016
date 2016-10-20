@@ -22,7 +22,7 @@ public class BSTPreOrderIteratorTest {
 		for(int i = 0; i < names.length; i++){
 			tree.insert(names[i]);
 		}
-		IteratorTree = tree.iterator();	// Here we make our Iterator tree with our BST tree 
+		IteratorTree = tree.iterator();	 // Here we make our Iterator tree with our BST tree 
 	}
 	@Test // Check if the Iterator we made sorts like the example in the book
 	public void CheckIfOurPreOrderSortsJustLikeTheExample(){

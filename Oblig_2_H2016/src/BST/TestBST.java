@@ -2,7 +2,8 @@ package BST;
 
 public class TestBST {
 	public static void main(String[] args) {
-		// Create a BST
+		// Create a BST 
+		
 		BST<String> tree = new BST<>();
 		tree.insert("George");
 		tree.insert("Michael");

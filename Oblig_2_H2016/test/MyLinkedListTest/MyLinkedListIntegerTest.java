@@ -8,8 +8,8 @@ import org.junit.Test;
 import MylinkedList.MyLinkedList;
 
 public class MyLinkedListIntegerTest {
-	// Testing with Integers
-	// Stopped this one since we only needed to test with one data type. String test is continued.
+	 // Testing with Integers
+	 // Stopped this one since we only needed to test with one data type. String test is continued.
 	private MyLinkedList mylinkedlist;
 	private Integer[] intArray = {9,6,1,2,-6,0,-2,3};
 	Object keyword = 2;

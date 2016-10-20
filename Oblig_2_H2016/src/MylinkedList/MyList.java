@@ -4,7 +4,7 @@ public interface MyList<E> extends java.lang.Iterable<E> {
 	  /** Add a new element at the end of this list */
 	  public void add(E e);
 
-	  /** Add a new element at the specified index in this list */
+	  /** Add a new element at the specified index in this list  */
 	  public void add(int index, E e);
 
 	  /** Clear the list */

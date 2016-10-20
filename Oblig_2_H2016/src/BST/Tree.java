@@ -4,7 +4,7 @@ public interface Tree<E> extends Iterable {
 	/** Return true if the element is in the tree */
 	public boolean search(E e);
 	/** Insert element e into the binary search tree.
-	 * Return true if the element is inserted successfully. */
+	 *  Return true if the element is inserted successfully. */
 	public boolean insert(E e);
 	/** Delete the specified element from the tree.
 	 * Return true if the element is deleted successfully. */

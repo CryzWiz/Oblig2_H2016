@@ -8,9 +8,6 @@ public class MyLinkedListStringTest {
 	// Testing with Strings
 	private MyLinkedList mylinkedlist;
 	private String[] stringArray = {"Bjarne","Åse","Vidar","Øystein","Åse","Stian"};
-	String keyword = new String("Åse");
-	String insert = new String("Inserted");
-	String inserted = new String("This is inserted");
 	
 	@Before
 	public void initialize(){
@@ -19,34 +16,45 @@ public class MyLinkedListStringTest {
 			mylinkedlist.add(new String(stringArray[i]));
 		}
 	}
-	@Test
-	public void testGet() {
+	@Test // Checking get method
+	public void checkIfGetReturnsCorrectElement() {
 		assertEquals(stringArray[2], mylinkedlist.get(2));
 		assertEquals(stringArray[4], mylinkedlist.get(4));
 	}
 	
-	@Test(expected=NullPointerException.class)
+	@Test(expected=NullPointerException.class) // Checking if asking for a non-existent index will give exception
 	public void testGetWithToBigIndex() {
-		assertEquals("The list size is not that big", mylinkedlist.get(12));
-		
+		assertEquals("The list size is not that big", mylinkedlist.get(99));
 	}
 	
-	@Test
-	public void testContains(){
-		assertEquals(true, mylinkedlist.contains(keyword));
+	@Test // Checking contains method
+	public void checkIfWeCanFindElements(){
+		assertEquals(true, mylinkedlist.contains("Åse"));
 		assertTrue(mylinkedlist.contains(new String("Stian")));
+		
+	}
+	@Test // Checking contains method
+	public void checkIfNonExistingElementsReturnFalse() {
 		assertFalse(mylinkedlist.contains(new String("Kjartan")));
 	}
 	
-	@Test
-	public void testlastIndexOf(){
-		assertEquals(4, mylinkedlist.lastIndexOf(keyword));
-		assertEquals(-1, mylinkedlist.lastIndexOf(""));
+	@Test // Checking lastIndexOf method
+	public void CheckIfWeGetCorrectLastIndexOfRecuringElement(){
 		assertEquals(4, mylinkedlist.lastIndexOf("Åse"));
 	}
+	@Test // Checking lastIndexOf method
+	public void checkIfWeGetCorrectIndexForSingleElements(){
+		assertEquals(3, mylinkedlist.lastIndexOf("Øystein"));
+	}
+	@Test // Checking lastIndexOf method
+	public void checkIfWeGetCorrectValueBackForIndexOfNonExsistingElement() {
+		assertEquals(-1, mylinkedlist.lastIndexOf(""));
+	}
 	
-	@Test
-	public void testSet(){
+	@Test // Checking set method, get() and getLast()
+	public void SettingNewContentAndCheckThatWeFindItAfterwards(){
+		String insert = new String("Inserted");
+		String inserted = new String("This is inserted");
 		assertEquals("Inserted", mylinkedlist.set(0,insert));
 		mylinkedlist.set(5,inserted);
 		assertEquals(inserted, mylinkedlist.get(5));

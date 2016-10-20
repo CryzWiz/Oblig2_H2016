@@ -128,9 +128,9 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 	
 	
 	// OBLIG OPPGAVER START
-	
+	 
 	/** Returns the node for the specified element
-	 * returns null if the element is not in the tree*/
+	 * returns null if the element is not in the tree */
 	public TreeNode<E> getNode(E element){
 		TreeNode<E> current = root;
 		if(search(element) != false){

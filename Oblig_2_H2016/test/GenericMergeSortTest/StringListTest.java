@@ -1,5 +1,4 @@
 package GenericMergeSortTest;
-
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
@@ -10,7 +9,7 @@ import GenericMergeSort.GenericMergeSort;
 public class StringListTest {
 
 	@Test // Test case for Strings
-	public void testSortStringEVEN(){
+	public void checkIfStringsEvenListLengthIsSortedCorrect(){
 		String[] stringArrayOne = {"Åse","Allan","Lotte","Kenneth"};
 		GenericMergeSort.mergeSort(stringArrayOne);
 		String[] stringCorrectResponceOne = {"Allan","Kenneth","Lotte","Åse"};
@@ -18,7 +17,7 @@ public class StringListTest {
 	}
 	
 	@Test
-	public void testSortStringODD(){
+	public void checkIfStringsOddListLengthIsSortedCorrect(){
 		String[] stringArrayOne = {"Eple","Melon","Banan","Pærer", "Appelsin"};
 		GenericMergeSort.mergeSort(stringArrayOne);
 		String[] stringCorrectResponceOne = {"Appelsin","Banan","Eple","Melon", "Pærer"};

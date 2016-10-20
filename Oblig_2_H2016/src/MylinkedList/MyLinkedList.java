@@ -205,6 +205,7 @@ public class MyLinkedList<E> extends MyAbstractList<E> {
 	    }
 	    return -1;							// No luck? We return -1
 	  }
+	  
 	  // OBLIG OPPGAVE
 	  @Override /** Return the index of the last matching element in 
 	   *  this list. Return -1 if no match. */
